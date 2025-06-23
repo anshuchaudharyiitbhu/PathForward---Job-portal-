@@ -1,0 +1,16 @@
+body {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #f4e9eb, #ecd0e8);
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: rgb(55, 53, 53) !important;
+  font-size: 500px;
+}
+.slick-stlye {
+    margin: 0 100px;
+}
+.hover-slide:hover {
+  transform: translateY(-5px) translateX(-5px);
+}
