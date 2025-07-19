@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from '@radix-ui/react-popover';
-import { Button } from '../ui/button';
+import { Button } from '../ui/Button';
 import { LogOut, User2 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/context.jsx';
