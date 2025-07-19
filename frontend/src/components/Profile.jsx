@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import Navbar from './shared/Navbar';
-import { Button } from './ui/button';
+import { Button } from './ui/Button';
 import { Contact, Mail, Pen } from 'lucide-react';
 import { Badge } from './ui/badge';
 import { Label } from './ui/label';

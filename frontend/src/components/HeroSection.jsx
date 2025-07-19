@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Button } from './ui/button';
+import { Button } from './ui/Button';
 import { Search } from 'lucide-react';
 import { SearchedContext } from './context/searchedcontext';
 import { useNavigate } from 'react-router-dom';

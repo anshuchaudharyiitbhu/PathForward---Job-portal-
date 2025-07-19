@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Button } from './ui/button';
+import { Button } from './ui/Button';
 import { Bookmark } from 'lucide-react';
 import { Badge } from './ui/badge';
 import Navbar from './shared/Navbar';

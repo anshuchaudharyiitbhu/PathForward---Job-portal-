@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from './ui/button';
+import { Button } from './ui/Button';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { USER_API_END_POINT } from '@/utilis/constant';
