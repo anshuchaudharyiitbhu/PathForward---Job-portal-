@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Button } from './ui/button';
+import { Button } from './ui/Button';
 import { Bookmark } from 'lucide-react';
 import Navbar from './shared/Navbar';
 import { UserContext } from './context/context';
