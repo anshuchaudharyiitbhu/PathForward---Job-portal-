@@ -19,7 +19,7 @@ const AdminDescription = () => {
   const fetchJobStatus = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/application/${jobid}/applicants`,
+        `https://pathforward-job-portal-backend.onrender.com/api/v1/application/${jobid}/applicants`,
         { withCredentials: true }
       );
 

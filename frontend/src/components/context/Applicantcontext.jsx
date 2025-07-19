@@ -7,7 +7,7 @@ export const AdminJobProvider = ({ children }) => {
   const [ajob, setajob] = useState(null);
   const fetchApplicants = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/v1/job/get/${jobid}`, { withCredentials: true });
+      const res = await axios.get(`https://pathforward-job-portal-backend.onrender.com/api/v1/job/get/${jobid}`, { withCredentials: true });
       if (res.data.success) {
         setApplications(res.data.job.applications || []);
       }

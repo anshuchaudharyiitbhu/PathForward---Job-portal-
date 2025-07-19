@@ -14,7 +14,7 @@ const Applicants = () => {
 
   const fetchApplicants = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/v1/job/get/${jobid}`, {
+      const res = await axios.get(`https://pathforward-job-portal-backend.onrender.com/api/v1/job/get/${jobid}`, {
         withCredentials: true,
       });
       if (res.data.success) {
@@ -28,7 +28,7 @@ const Applicants = () => {
   const handleStatusChange = async (newStatus, appId) => {
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/v1/application/status/${appId}/update`,
+        `https://pathforward-job-portal-backend.onrender.com/api/v1/application/status/${appId}/update`,
         { status: newStatus },
         { withCredentials: true }
       );

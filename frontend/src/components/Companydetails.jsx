@@ -70,7 +70,7 @@ const Companydetails = () => {
     formdata.append("file", input.file);
 
     try {
-      const res = await axios.post(`http://localhost:3000/api/v1/company/update/${companyid}`, formdata, {
+      const res = await axios.post(`https://pathforward-job-portal-backend.onrender.com/api/v1/company/update/${companyid}`, formdata, {
          headers: {
                     'Content-Type': 'multipart/form-data'
                 },

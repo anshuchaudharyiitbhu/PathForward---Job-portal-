@@ -18,7 +18,7 @@ const JobDescription = () => {
   const fetchJobStatus = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/application/${jobid}/applicants`,
+        `https://pathforward-job-portal-backend.onrender.com/api/v1/application/${jobid}/applicants`,
         { withCredentials: true }
       );
 
@@ -48,7 +48,7 @@ const JobDescription = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/v1/application/apply/${jobid}`,
+        `https://pathforward-job-portal-backend.onrender.com/api/v1/application/apply/${jobid}`,
         {},
         { withCredentials: true }
       );

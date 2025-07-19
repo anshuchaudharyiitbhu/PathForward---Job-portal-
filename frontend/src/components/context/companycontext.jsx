@@ -10,7 +10,7 @@ export const CompanyProvider = ({ children }) => {
   const [company, setcompany] = useState([]);
   const fetchcompany = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/v1/company/get", { withCredentials: true });
+        const response = await axios.get("https://pathforward-job-portal-backend.onrender.com/api/v1/company/get", { withCredentials: true });
         // console.log("responce",response);
         
         setcompany(response.data.companies || []);

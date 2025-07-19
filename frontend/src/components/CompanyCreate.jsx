@@ -19,12 +19,12 @@ const CompanyCreate = () => {
             
             e.preventDefault();
             try {
-                const res=await axios.post("http://localhost:3000/api/v1/company/register",input,{withCredentials:true})
+                const res=await axios.post("https://pathforward-job-portal-backend.onrender.com/api/v1/company/register",input,{withCredentials:true})
                 
                 if(res.data.success)
                 {
                     const companyid=res.data.company._id;
-                     const response = await axios.get("http://localhost:3000/api/v1/company/get", { withCredentials: true });
+                     const response = await axios.get("https://pathforward-job-portal-backend.onrender.com/api/v1/company/get", { withCredentials: true });
                      setcompany(response.data.companies)
                      
                    navigate(`/admin/companies/${companyid}`)

@@ -9,7 +9,7 @@ export const JobProvider = ({ children }) => {
   // Load data on mount
   const fetchJobs = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/v1/job/get",{withCredentials:true});
+      const response = await axios.get("https://pathforward-job-portal-backend.onrender.com/api/v1/job/get",{withCredentials:true});
       setjob(response.data.jobs || []);
       // console.log(job);
       
