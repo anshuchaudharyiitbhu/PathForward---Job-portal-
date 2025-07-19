@@ -12,7 +12,7 @@ export const JobProvider = ({ children }) => {
       const response = await axios.get("https://pathforward-job-portal-backend.onrender.com/api/v1/job/get",{withCredentials:true});
       setjob(response.data.jobs || []);
       // console.log(job);
-      
+       
     } catch (error) {
       console.error("Error fetching jobs:", error);
     }
@@ -22,7 +22,7 @@ export const JobProvider = ({ children }) => {
     fetchJobs();
   }, []);
 
-  // Store in localStorage
+  // Store in localStorage 
   useEffect(() => {
     if (job) {
       localStorage.setItem("job", JSON.stringify(job));
