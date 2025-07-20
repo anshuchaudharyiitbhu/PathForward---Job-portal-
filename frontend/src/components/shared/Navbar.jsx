@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from '@radix-ui/react-popover';
-import { Button } from '../ui/Button';
+import { Button } from '../ui/button';
 import { LogOut, User2 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/context.jsx';
@@ -23,29 +23,29 @@ const Navbar = () => {
   };
 
   return (
-    <header className=" top-0 z-50 bg-white shadow-sm bg-gradient-to-br from-[#f9c5d1] to-[#f7d9ff] mb-10">
+    <header className="top-0 z-50 bg-white shadow-sm bg-gradient-to-br from-[#f9c5d1] to-[#f7d9ff] mb-10">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
-        <div className="sm:text-2xl font-bold tracking-tight">
+        <div className="text-xl sm:text-2xl font-bold tracking-tight">
           <Link to={user?.role === 'recruiter' ? '/admin/companies' : '/'}>
             Path<span className="text-purple-500">Forward</span>
           </Link>
         </div>
 
         {/* Navigation Links */}
-        <nav className="flex items-center gap-10 text-gray-700 font-medium sm:text-lg m-3">
+        <nav className="flex items-center gap-5 sm:gap-10 text-gray-700 font-medium sm:text-lg m-3">
           {user?.role === 'student' ? (
             <>
               <Link to="/" className="hover:text-blue-600 transition">Home</Link>
               <Link to="/jobs" className="hover:text-blue-600 transition">Jobs</Link>
               <Link to="/browse" className="hover:text-blue-600 transition">Browse</Link>
             </>
-          ) :user?.role === 'recruiter'? (
+          ) : user?.role === 'recruiter' ? (
             <>
               <Link to="/admin/companies" className="hover:text-blue-600 transition">Companies</Link>
               <span onClick={handleJobs} className="cursor-pointer hover:text-blue-600 transition">Jobs</span>
             </>
-          ):(<></>)}
+          ) : null}
         </nav>
 
         {/* Auth / Profile */}
@@ -53,22 +53,24 @@ const Navbar = () => {
           {!user ? (
             <>
               <Link to="/login">
-                <Button className="bg-gray-600 hover:bg-gray-700 text-white  cursor-pointer">Log In</Button>
+                <Button className="bg-gray-600 hover:bg-gray-700 text-white">Log In</Button>
               </Link>
               <Link to="/signup">
-                <Button className="bg-purple-600 hover:bg-purple-700 text-white cursor-pointer">Sign Up</Button>
+                <Button className="bg-purple-600 hover:bg-purple-700 text-white">Sign Up</Button>
               </Link>
             </>
           ) : (
             <Popover>
               <PopoverTrigger asChild>
-                <img
-                  src={user?.profile?.profilephoto || "https://static.naukimg.com/s/0/0/i/ni-gnb-revamped/userdp_v1.svg"}
-                  alt="Avatar"
-                  className="sm:w-15 sm:h-15 w-10 h-10 rounded-full border-2   cursor-pointer"
-                />
+                <div className="flex items-center justify-center">
+                  <img
+                    src={user?.profile?.profilephoto || "https://static.naukimg.com/s/0/0/i/ni-gnb-revamped/userdp_v1.svg"}
+                    alt="Avatar"
+                    className="w-10 h-10 sm:w-14 sm:h-14 rounded-full border-2 object-cover cursor-pointer"
+                  />
+                </div>
               </PopoverTrigger>
-              <PopoverContent className=" mr-5 z-50 mt-3 w-64 bg-white border border-gray-200 rounded-xl shadow-lg p-5">
+              <PopoverContent className="mr-5 z-50 mt-3 w-64 bg-white border border-gray-200 rounded-xl shadow-lg p-5">
                 <div className="mb-4">
                   <h3 className="text-lg font-semibold">{user.name}</h3>
                   <p className="text-sm text-gray-500">{user.email}</p>
@@ -84,7 +86,7 @@ const Navbar = () => {
                   )}
                   <div className="flex items-center gap-2">
                     <LogOut className="text-gray-500" size={18} />
-                    <Button onClick={handleLogout} variant="link" className="cursor-pointer p-0 text-red-600 hover:underline">
+                    <Button onClick={handleLogout} variant="link" className="p-0 text-red-600 hover:underline">
                       Logout
                     </Button>
                   </div>
