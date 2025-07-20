@@ -1,20 +1,35 @@
-import React, { useContext } from 'react'
-import { SearchedContext } from './context/searchedcontext'
-import { useNavigate } from 'react-router-dom'
+import React, { useContext } from 'react';
+import { SearchedContext } from './context/searchedcontext';
+import { useNavigate } from 'react-router-dom';
 
 const Choice_box = (props) => {
-  
-    const {searched,setsearched}=useContext(SearchedContext);
-    const navigate=useNavigate();
-    return (
-    <div>
-      <div onClick={(e)=>{navigate('/browse'),setsearched(props.choice)}} style={{ backgroundImage: "linear-gradient(to right, #f9c5d1, #f7d9ff)" }} className=" shadow-lg hover:shadow-gray-400 flex h-20 justify-between items-center box border-2  p-5 pt-2 pb-2 gap-2 rounded-2xl cursor-pointer w-[35vw] sm:w-fit lg:w-fit">
-                    <img className='w-8 h-8' src={props.link} alt="home icon" />
-                    <span className='sm:font-semibold' >{props.choice}</span>
-                    <img src="https://static.naukimg.com/s/7/0/assets/images/src/widgets/trending-naukri-wdgt/latest/assets/arrow.5c4fe2ef.svg" alt="" />
-                    </div>
-    </div>
-  )
-}
+  const { setsearched } = useContext(SearchedContext);
+  const navigate = useNavigate();
 
-export default Choice_box
+  const handleClick = () => {
+    setsearched(props.choice);
+    navigate('/browse');
+  };
+
+  return (
+    <div className="w-[90vw] sm:w-[250px] lg:w-[280px]">
+      <div
+        onClick={handleClick}
+        className="bg-gradient-to-r from-[#f9c5d1] to-[#f7d9ff] 
+        shadow-md hover:shadow-lg border border-gray-300 rounded-2xl 
+        p-4 h-[80px] flex items-center justify-between gap-4 
+        cursor-pointer transition-all duration-300"
+      >
+        <img className="w-8 h-8 object-contain" src={props.link} alt="icon" />
+        <span className="text-sm font-semibold text-center flex-1 truncate">{props.choice}</span>
+        <img
+          className="w-4 h-4"
+          src="https://static.naukimg.com/s/7/0/assets/images/src/widgets/trending-naukri-wdgt/latest/assets/arrow.5c4fe2ef.svg"
+          alt="arrow"
+        />
+      </div>
+    </div>
+  );
+};
+
+export default Choice_box;
