@@ -24,7 +24,7 @@ const Navbar = () => {
 
   return (
     <header className="top-0 z-50 bg-white shadow-sm bg-gradient-to-br from-[#f9c5d1] to-[#f7d9ff] mb-10">
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+      <div className="container mx-auto px-6 py-4 flex flex-col sm:flex-row  lg:flex-row justify-between items-center">
         {/* Logo */}
         <div className="text-xl sm:text-2xl font-bold tracking-tight">
           <Link to={user?.role === 'recruiter' ? '/admin/companies' : '/'}>
