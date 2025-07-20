@@ -1,134 +1,195 @@
-import React, { useEffect, useState } from 'react'
-import { Button } from '../ui/Button'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import Navbar from '../shared/Navbar'
-import axios, { Axios } from 'axios'
-import { USER_API_END_POINT } from '@/utilis/constant'
-import toast from 'react-hot-toast'
-import { UserContext } from '../context/context'
-import { Helmet } from 'react-helmet-async'
-// import { toast } from "sonner"
-// function usePageTitle(title) {
-//   const location = useLocation();
-//   useEffect(() => {
-//     document.title = title;
-//   }, [location.pathname]);
-// }
-
+import React, { useEffect, useState } from 'react';
+import { Button } from '../ui/Button';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { USER_API_END_POINT } from '@/utilis/constant';
+import toast from 'react-hot-toast';
 
 const Signup = () => {
-     
-const [loading, setloading] = useState(false);
- 
-    
-    const [input, setinput] = useState(
-        {
-            name: "",
-            email: "",
-            contact: "",
-            password: "",
-            role: "",
-            file: "",
-        }
-    )
-    const handel = (e) => {
-        setinput({ ...input, [e.target.name]: e.target.value })
+  const [loading, setloading] = useState(false);
+  const [input, setinput] = useState({
+    name: '',
+    email: '',
+    contact: '',
+    password: '',
+    role: '',
+    file: '',
+  });
+
+  const navigate = useNavigate();
+
+  const handel = (e) => {
+    setinput({ ...input, [e.target.name]: e.target.value });
+  };
+
+  const handelfile = (e) => {
+    setinput({ ...input, [e.target.name]: e.target.files[0] });
+  };
+
+  const handelsubmit = async (e) => {
+    setloading(true);
+    e.preventDefault();
+
+    const formdata = new FormData();
+    formdata.append('name', input.name);
+    formdata.append('email', input.email);
+    formdata.append('contact', input.contact);
+    formdata.append('password', input.password);
+    formdata.append('role', input.role);
+    formdata.append('file', input.file);
+
+    try {
+      const res = await axios.post(`${USER_API_END_POINT}/register`, formdata, {
+        withCredentials: true,
+      });
+
+      if (res.data.success) {
+        toast.success(res.data.message);
+        navigate('/login');
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || 'Something went wrong');
+    } finally {
+      setloading(false);
     }
-    const handelfile = (e) => {
-        setinput({ ...input, [e.target.name]: e.target.files[0] })
-    }  
-    const navigate= useNavigate();
-    const handelsubmit = async(e) => {
-        setloading(true);
-        e.preventDefault();
-      
-        const formdata = new FormData();
-        formdata.append("name", input.name);
-        formdata.append("email", input.email);
-        formdata.append("contact", input.contact);
-        formdata.append("password", input.password);
-        formdata.append("role", input.role);
-        formdata.append("file", input.file);
-        try {
-            const res = await axios.post(`${USER_API_END_POINT}/register`, formdata,{ withCredentials: true,});
-        if(res.data.success)
-            {
-            navigate("/login");
-          toast.success(res.data.message);
-            
-        }else{
-            // console.log("kkk");
-             toast.error(res.data.message);
-        }
+  };
 
-        // console.log(input,"hii");
-            
-        } catch (error) {
-            console.log(error);
-            toast.error(error.response.data.message)
-            
-        }finally
-        {
-            setloading(false);
-        }
+  return (
+    <div className="min-h-screen bg-zinc-100 py-10 px-4 flex items-center justify-center">
+      <form
+        onSubmit={handelsubmit}
+        className="bg-white shadow-md shadow-gray-400 rounded-2xl p-6 md:p-10 w-full max-w-xl space-y-6"
+      >
+        <h1 className="text-2xl md:text-3xl font-bold text-center text-gray-900">Create a new account</h1>
+        <p className="text-center text-sm md:text-base text-gray-600">
+          Get matched with jobs tailored to your skills, passions, and experience — all for free.
+        </p>
 
-        
-    }
-        //    usePageTitle("Sign Up | PathForward");
-
-    return (
-        <div>
-           
-            
-            <div >
-                <form className=" shadow-lg shadow-gray-500 main flex   items-center flex-col gap-5 bg-zinc-100 w-fit      m-auto mt-20 p-4 rounded-2xl " onSubmit={handelsubmit} action="">
-                    <h1 className=' text-center text-2xl font-medium text-gray-900 md: md:text-3xl'>Create a new account</h1>
-                    <p className='text-md text-center text-gray-500 md:text-lg'>Get matched with jobs tailored to your skills, <br></br>passions, and experience and track your <br /> applications – all for free.</p>
-                    <div className='flex flex-col'>
-                        <label className=' font-semibold' htmlFor="">Full Name </label>
-                        <input  className=' hover:shadow-lg shadow-gray-500 bg-white border border-gray-800 p-1 px-2 sm:w-2xl  gap-3 rounded-2xl text-1xl' type="text" placeholder=' Full Name' value={input.name} name="name" onChange={handel} />
-                    </div>
-                    <div className='flex flex-col'>
-                        <label className=' font-semibold' htmlFor="">Email </label>
-                        <input className=' hover:shadow-lg shadow-gray-500 bg-white border border-gray-800 p-1 px-2 sm:w-2xl rounded-2xl text-1xl' type="text" placeholder='abcd@xyz.com' value={input.email} name="email" onChange={handel} />
-                    </div>
-                    <div className='flex flex-col'>
-                        <label className=' font-semibold' htmlFor="">Phone Number </label>
-                        <input className=' hover:shadow-lg shadow-gray-500 bg-white border border-gray-800 p-1 px-2 sm:w-2xl rounded-2xl text-1xl' type="text" placeholder='Mobile No.' value={input.contact} name="contact" onChange={handel} />
-                    </div>
-                    <div className='flex flex-col'>
-                        <label className=' font-semibold' htmlFor="">Password</label>
-                        <input className=' hover:shadow-lg shadow-gray-500 bg-white border border-gray-800 p-1 px-2 sm:w-2xl rounded-2xl text-1xl' type="password" placeholder='Password' value={input.password} name="password" onChange={handel} />
-                    </div>
-                    <div className="flex flex-col gap-3 sm:flex-row sm:gap-20 items-center">
-                        <div onChange={handel} className="role flex gap-5 "><div className='flex gap-2'><input className='cursor-pointer' type="radio" value="student" name="role" />Student</div>
-                            <div className='flex gap-2 '><input className='cursor-pointer' type="radio" value="recruiter" name="role" />Recruiter</div></div>
-                        <div className='flex gap-5 items-center'>
-                            <label htmlFor="">Profile Photo</label>
-                            <input className="grid w-50 items-center gap-4 bg-white border border-gray-800 p-1  rounded-2xl cursor-pointer" type="file" name="file" onChange={handelfile} /></div></div>
-
-                    <Button className='w-[100%] cursor-pointer'   disabled={loading}>
-                      {loading ? (
-                        <>
-                          <svg className="animate-spin h-5 w-5 mr-2 inline" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a10 10 0 100 20v-4l-3 3 3 3v-4a8 8 0 01-8-8z" />
-                          </svg>
-                          Signing Up...
-                        </>
-                      ) : "Sign Up"}
-                    </Button>
-                    <div className="flex gap-2"> <p>Already have an account ?</p><Link to="/login" className='text-blue-400'>Login</Link></div>
-
-
-                </form>
-                <div className="mt-20 p-5 flex justify-center">
-                <p>By clicking 'Sign up', you acknowledge that you have read and accepted the <span className='text-blue-400 cursor-pointer'><Link to='/terms'>Terms of Service</Link> </span>and <span className='text-blue-400 cursor-pointer'><Link to='/privacy'>Privacy Policy.</Link></span></p></div>
-
-            </div>
-
+        <div className="space-y-3">
+          <label className="block font-semibold">Full Name</label>
+          <input
+            type="text"
+            name="name"
+            value={input.name}
+            onChange={handel}
+            placeholder="Full Name"
+            className="w-full border border-gray-800 rounded-xl px-3 py-2 focus:outline-none focus:ring focus:ring-pink-300"
+          />
         </div>
-    )
-}
 
-export default Signup
+        <div className="space-y-3">
+          <label className="block font-semibold">Email</label>
+          <input
+            type="email"
+            name="email"
+            value={input.email}
+            onChange={handel}
+            placeholder="abcd@xyz.com"
+            className="w-full border border-gray-800 rounded-xl px-3 py-2 focus:outline-none focus:ring focus:ring-pink-300"
+          />
+        </div>
+
+        <div className="space-y-3">
+          <label className="block font-semibold">Phone Number</label>
+          <input
+            type="text"
+            name="contact"
+            value={input.contact}
+            onChange={handel}
+            placeholder="Mobile Number"
+            className="w-full border border-gray-800 rounded-xl px-3 py-2 focus:outline-none focus:ring focus:ring-pink-300"
+          />
+        </div>
+
+        <div className="space-y-3">
+          <label className="block font-semibold">Password</label>
+          <input
+            type="password"
+            name="password"
+            value={input.password}
+            onChange={handel}
+            placeholder="Password"
+            className="w-full border border-gray-800 rounded-xl px-3 py-2 focus:outline-none focus:ring focus:ring-pink-300"
+          />
+        </div>
+
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+          <div className="flex items-center gap-4">
+            <label className="font-semibold">Role:</label>
+            <div className="flex gap-2">
+              <label className="flex items-center gap-1">
+                <input type="radio" value="student" name="role" onChange={handel} /> Student
+              </label>
+              <label className="flex items-center gap-1">
+                <input type="radio" value="recruiter" name="role" onChange={handel} /> Recruiter
+              </label>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <label htmlFor="file" className="font-semibold">
+              Profile Photo:
+            </label>
+            <input
+              id="file"
+              type="file"
+              name="file"
+              onChange={handelfile}
+              className="cursor-pointer border border-gray-800 rounded-xl px-2 py-1"
+            />
+          </div>
+        </div>
+
+        <Button className="w-full" disabled={loading}>
+          {loading ? (
+            <>
+              <svg
+                className="animate-spin h-5 w-5 mr-2 inline"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                  fill="none"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4l3-3-3-3v4a10 10 0 100 20v-4l-3 3 3 3v-4a8 8 0 01-8-8z"
+                />
+              </svg>
+              Signing Up...
+            </>
+          ) : (
+            'Sign Up'
+          )}
+        </Button>
+
+        <div className="text-center text-sm">
+          Already have an account?{' '}
+          <Link to="/login" className="text-blue-500 underline">
+            Login
+          </Link>
+        </div>
+      </form>
+
+      <div className="max-w-xl text-sm text-center mt-6 px-4 text-gray-500">
+        By clicking 'Sign up', you acknowledge that you have read and accepted the{' '}
+        <Link to="/terms" className="text-blue-400 underline">
+          Terms of Service
+        </Link>{' '}
+        and{' '}
+        <Link to="/privacy" className="text-blue-400 underline">
+          Privacy Policy.
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+export default Signup;
