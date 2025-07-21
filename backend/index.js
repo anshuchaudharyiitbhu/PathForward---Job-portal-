@@ -19,7 +19,7 @@ app.use(cookieParser());
 
 // ✅ FIXED CORS CONFIGURATION
 app.use(cors({
-    origin: "https://pathforward-job-portal-x7se.onrender.com",  // your frontend deployed URL
+    origin: "https://pathforward-job-portal-tz3s.onrender.com",  // your frontend deployed URL
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
