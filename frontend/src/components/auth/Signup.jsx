@@ -154,7 +154,7 @@ const Signup = () => {
           </div>
 
           {/* Submit Button */}
-          <Button className="w-full" disabled={loading}>
+          <Button className="w-full cursor-pointer" disabled={loading}>
             {loading ? (
               <div className="flex items-center justify-center gap-2">
                 <svg
