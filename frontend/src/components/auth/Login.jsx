@@ -5,7 +5,7 @@ import Navbar from '../shared/Navbar'
 import axios from 'axios'
 import { USER_API_END_POINT } from '@/utilis/constant'
 import { UserContext} from '../context/context'
-import { JobContext } from './context/Jobcontext'
+import { JobContext } from '../context/Jobcontext'
 import toast from 'react-hot-toast'
 import { Helmet } from 'react-helmet'
 
