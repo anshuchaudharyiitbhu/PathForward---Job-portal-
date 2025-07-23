@@ -4,25 +4,30 @@ import { createContext, useState, useEffect } from "react";
 export const JobContext = createContext();
 
 export const JobProvider = ({ children }) => {
-  const [job, setjob] = useState(null);
+  const [job, setJob] = useState(() => {
+    const storedJobs = localStorage.getItem("job");
+    return storedJobs ? JSON.parse(storedJobs) : [];
+  });
 
-  // Load data on mount
+  // Fetch jobs function
   const fetchJobs = async () => {
     try {
-      const response = await axios.get("https://pathforward-job-portal-backend.onrender.com/api/v1/job/get",{withCredentials:true});
-      setjob(response.data.jobs || []);
-      // console.log(job);
-       
+      const response = await axios.get(
+        "https://pathforward-job-portal-backend.onrender.com/api/v1/job/get",
+        { withCredentials: true }
+      );
+      setJob(response.data.jobs || []);
     } catch (error) {
       console.error("Error fetching jobs:", error);
     }
   };
-  useEffect(() => {
 
+  // Fetch jobs on initial load (even without login)
+  useEffect(() => {
     fetchJobs();
   }, []);
 
-  // Store in localStorage 
+  // Update localStorage whenever jobs change
   useEffect(() => {
     if (job) {
       localStorage.setItem("job", JSON.stringify(job));
@@ -32,7 +37,7 @@ export const JobProvider = ({ children }) => {
   }, [job]);
 
   return (
-    <JobContext.Provider value={{ job, setjob,fetchJobs }}>
+    <JobContext.Provider value={{ job, setJob, fetchJobs }}>
       {children}
     </JobContext.Provider>
   );
