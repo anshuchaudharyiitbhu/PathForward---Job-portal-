@@ -91,7 +91,7 @@ const Companies = () => {
             </TableBody>
 
 
-          )) : <span>"Nothing to show</span>}
+          )) : <span>"The page didn’t load correctly. Refresh and try again.</span>}
 
 
 
