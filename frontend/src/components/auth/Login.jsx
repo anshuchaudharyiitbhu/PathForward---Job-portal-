@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import Navbar from '../shared/Navbar'
 import axios from 'axios'
 import { USER_API_END_POINT } from '@/utilis/constant'
-import { UserContext } from '../context/context'
+import { UserContext,JobContext } from '../context/context'
 import toast from 'react-hot-toast'
 import { Helmet } from 'react-helmet'
 
@@ -29,6 +29,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+const { fetchJobs } = useContext(JobContext);
 
   const handelsubmit = async (e) => {
     setloading(true);
@@ -46,6 +47,7 @@ const Login = () => {
       });
 
       if (res.data.success) {
+        fetchJobs();
         navigate("/");
         setUser(res.data.user);
         toast.success(res.data.message);
