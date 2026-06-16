@@ -32,6 +32,17 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!/^\d{10}$/.test(input.contact)) {
+    toast.error("Mobile number must be exactly 10 digits");
+    return;
+  }
+
+  // Email validation
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email)) {
+    toast.error("Please enter a valid email address");
+    return;
+  }
      if (!input.role) {
     toast.error("Please select a role");
     return;
