@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react'
 import { Button } from '../ui/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { USER_API_END_POINT } from '@/utilis/constant';
+import { UserContext} from '../context/context'
+import { JobContext } from '../context/Jobcontext'
 import toast from 'react-hot-toast';
 
 const Signup = () => {
+  const { setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState({
     name: '',
@@ -17,6 +20,7 @@ const Signup = () => {
   });
 
   const navigate = useNavigate();
+  const { fetchJobs } = useContext(JobContext);
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -42,9 +46,9 @@ const Signup = () => {
 
       if (res.data.success) {
        fetchJobs();
-        navigate("/");
         setUser(res.data.user);
         toast.success(res.data.message);
+        navigate("/");
       } else {
         toast.error(res.data.message);
       }
@@ -134,7 +138,7 @@ const Signup = () => {
               <label className="block text-sm font-medium text-gray-700">Role</label>
               <div className="mt-1 flex gap-4">
                 <label className="flex items-center gap-2 text-sm">
-                  <input type="radio" name="role" value="student" onChange={handleChange} /> Student
+                  <input type="radio" name="role" value="student" onChange={handleChange} required /> Student
                 </label>
                 <label className="flex items-center gap-2 text-sm">
                   <input type="radio" name="role" value="recruiter" onChange={handleChange} /> Recruiter
