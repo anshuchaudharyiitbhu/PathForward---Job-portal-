@@ -42,7 +42,7 @@ const Signup = () => {
 
       if (res.data.success) {
         toast.success(res.data.message);
-        navigate('/login');
+        navigate('/');
       } else {
         toast.error(res.data.message);
       }
