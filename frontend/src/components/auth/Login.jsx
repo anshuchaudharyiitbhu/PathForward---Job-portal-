@@ -33,13 +33,13 @@ const Login = () => {
 const { fetchJobs } = useContext(JobContext);
 
   const handelsubmit = async (e) => {
-    setloading(true);
     e.preventDefault();
 
     if (!input.role) {
       alert("Please select a role (Student or Recruiter)");
       return;
     }
+    setloading(true);
 
     try {
       const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
