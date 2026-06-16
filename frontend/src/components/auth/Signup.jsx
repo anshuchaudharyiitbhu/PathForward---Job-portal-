@@ -41,8 +41,10 @@ const Signup = () => {
       });
 
       if (res.data.success) {
+       fetchJobs();
+        navigate("/");
+        setUser(res.data.user);
         toast.success(res.data.message);
-        navigate('/');
       } else {
         toast.error(res.data.message);
       }
