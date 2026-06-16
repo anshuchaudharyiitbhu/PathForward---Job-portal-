@@ -32,6 +32,15 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+     if (!input.role) {
+    toast.error("Please select a role");
+    return;
+  }
+    
+     if (!input.file) {
+    toast.error("Profile photo is required");
+    return;
+  }
     setLoading(true);
 
     const formData = new FormData();
@@ -46,9 +55,8 @@ const Signup = () => {
 
       if (res.data.success) {
        fetchJobs();
-        setUser(res.data.user);
-        toast.success(res.data.message);
-        navigate("/");
+        navigate("/login");
+        toast.success("Account created successfully");
       } else {
         toast.error(res.data.message);
       }
