@@ -104,7 +104,7 @@ const Applicants = () => {
                       onClick={(e)=>setstatus(e.target.value)}
                       className="border p-2 rounded-md"
                     >
-                      <option value={item.status} disabled hidden>
+                      <option value="status" disabled hidden>
                         {status}
                       </option>
                       <option value="Pending">Pending</option>
