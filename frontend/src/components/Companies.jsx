@@ -5,22 +5,20 @@ import { Button } from './ui/Button';
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
 import { Link, useNavigate } from 'react-router-dom';
 import { CompanyContext } from './context/companycontext';
-import { Edit2, MoreVertical } from 'lucide-react';
+import { Edit2, MoreVertical, Trash2 } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@radix-ui/react-popover';
 
 const Companies = () => {
   const user = useContext(UserContext);
-  const { company, fetchcompany } = useContext(CompanyContext);
+  const { company, fetchcompany, deleteCompany } = useContext(CompanyContext);
   const [filtercompany, setfiltercompany] = useState([]);
   const [input, setinput] = useState('');
   const navigate = useNavigate();
 
-  // ✅ Fetch company data on first load
   useEffect(() => {
     fetchcompany();
   }, []);
 
-  // ✅ Apply search filtering when data or input changes
   useEffect(() => {
     const searched = company.filter(comp => {
       if (!input) return true;
@@ -56,7 +54,7 @@ const Companies = () => {
           </TableHeader>
 
           {filtercompany && filtercompany.length > 0 ? (
-            filtercompany.map((item, index) => (
+            filtercompany.map((item) => (
               <TableBody key={item._id}>
                 <TableRow>
                   <TableCell>
@@ -75,17 +73,27 @@ const Companies = () => {
                       <PopoverTrigger>
                         <MoreVertical className="cursor-pointer" />
                       </PopoverTrigger>
+
                       <PopoverContent>
                         <div
                           style={{ backgroundImage: 'linear-gradient(to right, #f9c5d1, #f7d9ff)' }}
-                          className="rounded-2xl"
+                          className="rounded-2xl flex flex-col"
                         >
-                          <Link
+                          <button
                             onClick={() => navigate(`/admin/companies/${item._id}`)}
-                            className="p-5 flex justify-center items-center gap-4"
+                            className="p-5 flex items-center gap-4 hover:bg-white/20"
                           >
-                            <Edit2 /> Edit
-                          </Link>
+                            <Edit2 size={18} />
+                            Edit
+                          </button>
+
+                          <button
+                            onClick={() => deleteCompany(item._id)}
+                            className="p-5 flex items-center gap-4 text-red-600 hover:bg-white/20"
+                          >
+                            <Trash2 size={18} />
+                            Delete
+                          </button>
                         </div>
                       </PopoverContent>
                     </Popover>
