@@ -10,7 +10,7 @@ const Applicants = () => {
   const { id: jobid } = useParams();
   const [applications, setApplications] = useState([]);
   const { job, setjob } = useContext(JobContext);
-  const [status, setstatus] = useState("Pending")
+  
 
   const fetchApplicants = async () => {
     try {
@@ -99,14 +99,14 @@ const Applicants = () => {
                   <TableCell>{new Date(item.createdAt).toLocaleDateString()}</TableCell>
                   <TableCell className="text-right">
                    <select
-  value={item.status}
-  onChange={(e) => handleStatusChange(e.target.value, item._id)}
-  className="border p-2 rounded-md"
->
-  <option value="Pending">Pending</option>
-  <option value="Accepted">Accepted</option>
-  <option value="Rejected">Rejected</option>
-</select>
+                    value={item.status}
+                    onChange={(e) => handleStatusChange(e.target.value, item._id)}
+                     className="border p-2 rounded-md"
+                        >
+                       <option value="Pending">Pending</option>
+                       <option value="Accepted">Accepted</option>
+                       <option value="Rejected">Rejected</option>
+                  </select>
                   </TableCell>
                 </TableRow>
               ))
