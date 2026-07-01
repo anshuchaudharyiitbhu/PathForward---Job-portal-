@@ -33,6 +33,7 @@ const Applicants = () => {
         { withCredentials: true }
       );
       if (res.data.success) {
+        setstatus(e.target.value);
         toast.success('Status updated successfully');
         fetchApplicants(); // refresh list
       }
