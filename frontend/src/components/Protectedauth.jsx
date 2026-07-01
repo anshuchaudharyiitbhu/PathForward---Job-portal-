@@ -8,7 +8,12 @@ const Protectedauth=({children})=>{
     const navigate=useNavigate();
     useEffect(() => {
         if(user)
-       { navigate("/")
+       { 
+          if (user.role === "recruiter") {
+    navigate("/admin/companies", { replace: true });
+} else {
+    navigate("/", { replace: true });
+}
      }
     }, [user,navigate])
     
