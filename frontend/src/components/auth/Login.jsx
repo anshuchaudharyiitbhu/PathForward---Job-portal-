@@ -49,7 +49,7 @@ const { fetchJobs } = useContext(JobContext);
 
       if (res.data.success) {
         fetchJobs();
-        setUser(res.data.user);
+        await setUser(res.data.user);
         navigate("/");
         toast.success(res.data.message);
       }
