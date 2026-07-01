@@ -49,8 +49,8 @@ const { fetchJobs } = useContext(JobContext);
 
       if (res.data.success) {
         fetchJobs();
-        navigate("/");
         setUser(res.data.user);
+        navigate("/");
         toast.success(res.data.message);
       }
     } catch (error) {
