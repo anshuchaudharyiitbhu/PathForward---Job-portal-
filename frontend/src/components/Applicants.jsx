@@ -98,19 +98,15 @@ const Applicants = () => {
                   </TableCell>
                   <TableCell>{new Date(item.createdAt).toLocaleDateString()}</TableCell>
                   <TableCell className="text-right">
-                    <select
-                     
-                      onChange={(e) => handleStatusChange(e.target.value, item._id)}
-                      onClick={(e)=>setstatus(e.target.value)}
-                      className="border p-2 rounded-md"
-                    >
-                      <option value="status" disabled hidden>
-                        {status}
-                      </option>
-                      <option value="Pending">Pending</option>
-                      <option value="Accepted">Accepted</option>
-                      <option value="Rejected">Rejected</option>
-                    </select>
+                   <select
+  value={item.status}
+  onChange={(e) => handleStatusChange(e.target.value, item._id)}
+  className="border p-2 rounded-md"
+>
+  <option value="Pending">Pending</option>
+  <option value="Accepted">Accepted</option>
+  <option value="Rejected">Rejected</option>
+</select>
                   </TableCell>
                 </TableRow>
               ))
