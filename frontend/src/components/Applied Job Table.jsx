@@ -55,9 +55,9 @@ const AppliedJobTable = () => {
             <TableCell className="text-right">
               <Badge
                 className={`${
-                  userApplication.status === "rejected"
+                  userApplication.status === "Rejected"
                     ? "bg-red-400"
-                    : userApplication.status === "accepted"
+                    : userApplication.status === "Accepted"
                     ? "bg-green-400"
                     : "bg-gray-400"
                 } xl:w-[5vw] sm:w-[10vw] w-[15vw]`}
