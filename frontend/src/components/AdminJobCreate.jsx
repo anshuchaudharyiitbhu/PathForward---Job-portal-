@@ -108,7 +108,7 @@ const Companydetails = () => {
             </div>
 
             <div className='flex flex-col'>
-              <label className='mb-1 font-semibold'>Salary</label>
+              <label className='mb-1 font-semibold'>Salary (LPA)</label>
               <input
                 name="salary"
                 value={input.salary}
@@ -144,7 +144,7 @@ const Companydetails = () => {
             </div>
 
             <div className='flex flex-col'>
-              <label className='mb-1 font-semibold'>Experience</label>
+              <label className='mb-1 font-semibold'>Experience (Years)</label>
               <input
                 name="experience"
                 value={input.experience}
