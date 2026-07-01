@@ -87,13 +87,7 @@ const Companies = () => {
                             Edit
                           </button>
 
-                          <button
-                            onClick={() => deleteCompany(item._id)}
-                            className="p-5 flex items-center gap-4 text-red-600 hover:bg-white/20"
-                          >
-                            <Trash2 size={18} />
-                            Delete
-                          </button>
+                          
                         </div>
                       </PopoverContent>
                     </Popover>
