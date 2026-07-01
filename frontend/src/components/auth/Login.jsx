@@ -49,8 +49,13 @@ const { fetchJobs } = useContext(JobContext);
 
       if (res.data.success) {
         fetchJobs();
-        await setUser(res.data.user);
-        navigate("/");
+        setUser(res.data.user);
+        const user_role = res?.data?.user?.role;
+       if (user_role === "recruiter") {
+       navigate("/admin/companies");
+      } else {
+               navigate("/");
+              }
         toast.success(res.data.message);
       }
     } catch (error) {
