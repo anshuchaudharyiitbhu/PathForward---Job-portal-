@@ -83,7 +83,7 @@ const JobDescription = () => {
             </p>
           </div>
           <Button variant="outline" size="icon">
-            <Bookmark />
+           
           </Button>
         </div>
 
