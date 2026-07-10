@@ -64,7 +64,7 @@ const searched = ajob?.length >= 0 && ajob.filter(job => {
               {/* Header */}
               <div className="flex justify-between items-center mb-2">
                 <span className="text-sm text-gray-500">{getDaysAgo(item.createdAt)}</span>
-                <Button variant="ghost" size="icon"><Bookmark /></Button>
+                
               </div>
 
               {/* Company Info */}
