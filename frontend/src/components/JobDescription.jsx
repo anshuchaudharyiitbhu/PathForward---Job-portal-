@@ -82,9 +82,7 @@ const JobDescription = () => {
               {jobDetails.company?.name} • {jobDetails.location}
             </p>
           </div>
-          <Button variant="outline" size="icon">
-           
-          </Button>
+          
         </div>
 
         <p className="text-sm text-gray-500 mb-4">
