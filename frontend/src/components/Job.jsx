@@ -62,9 +62,7 @@ const Job = () => {
                 {/* Top Date and Bookmark */}
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-sm text-gray-500">{getDaysAgo(item.createdAt)}</span>
-                  <Button variant="outline" size="icon" className="rounded-full">
-                    <Bookmark />
-                  </Button>
+                 
                 </div>
 
                 {/* Logo and Company */}
