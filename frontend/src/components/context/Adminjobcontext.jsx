@@ -7,7 +7,7 @@ export const AdminJobProvider = ({ children }) => {
   const [ajob, setajob] = useState(null);
   const fetchJobs = async () => {
       try {
-        const response = await axios.get("https://pathforward-job-portal-backend.onrender.com/api/v1/job/getadminjobs",{withCredentials:true});
+        const response = await axios.get(`${API_END_POINT}/job/getadminjobs`,{withCredentials:true});
         setajob(response.data.jobs || []);
         // console.log(job);
         
