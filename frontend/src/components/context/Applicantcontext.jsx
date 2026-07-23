@@ -1,13 +1,19 @@
 import axios from "axios";
 import { createContext, useState, useEffect } from "react";
+import { API_END_POINT } from "@/utilis/constant";
 
 export const AdminJobContext = createContext();
 
 export const AdminJobProvider = ({ children }) => {
   const [ajob, setajob] = useState(null);
+
   const fetchApplicants = async () => {
     try {
-      const res = await axios.get(`https://pathforward-job-portal-backend.onrender.com/api/v1/job/get/${jobid}`, { withCredentials: true });
+      const res = await axios.get(
+        `${API_END_POINT}/job/get/${jobid}`,
+        { withCredentials: true }
+      );
+
       if (res.data.success) {
         setApplications(res.data.job.applications || []);
       }
@@ -16,12 +22,10 @@ export const AdminJobProvider = ({ children }) => {
     }
   };
 
-  // Load data on mount
   useEffect(() => {
-      fetchApplicants();
-    }, []);
+    fetchApplicants();
+  }, []);
 
-  // Store in localStorage
   useEffect(() => {
     if (ajob) {
       localStorage.setItem("job", JSON.stringify(ajob));
@@ -31,7 +35,7 @@ export const AdminJobProvider = ({ children }) => {
   }, [ajob]);
 
   return (
-    <AdminJobContext.Provider value={{ ajob, setajob,fetchJobs }}>
+    <AdminJobContext.Provider value={{ ajob, setajob, fetchJobs }}>
       {children}
     </AdminJobContext.Provider>
   );
