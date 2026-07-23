@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_END_POINT } from '@/utilis/constant'
 import { createContext, useState, useEffect } from "react";
 
 export const AdminJobContext = createContext();
