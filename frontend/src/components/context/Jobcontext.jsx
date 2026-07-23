@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useState, useEffect } from "react";
+import { API_END_POINT } from "@/utilis/constant";
 
 export const JobContext = createContext();
 
@@ -13,7 +14,7 @@ export const JobProvider = ({ children }) => {
   const fetchJobs = async () => {
     try {
       const response = await axios.get(
-        "https://pathforward-job-portal-backend.onrender.com/api/v1/job/get",
+        `${API_END_POINT}/job/get`,
         { withCredentials: true }
       );
       setJob(response.data.jobs || []);
