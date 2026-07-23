@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Navbar from './shared/Navbar';
 import { Button } from './ui/Button';
 import { Link, useNavigate } from 'react-router-dom';
@@ -6,12 +6,13 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { CompanyContext } from './context/companycontext';
 import { AdminJobContext } from './context/Adminjobcontext';
+import { API_END_POINT } from '@/utilis/constant';
 
 const Companydetails = () => {
   const navigate = useNavigate();
   const [loading, setloading] = useState(false);
-  const { company, fetchcompany } = useContext(CompanyContext);
-  const {fetchJobs}=useContext(AdminJobContext)
+  const { company } = useContext(CompanyContext);
+  const { fetchJobs } = useContext(AdminJobContext);
 
   const [input, setInput] = useState({
     title: '',
@@ -35,12 +36,14 @@ const Companydetails = () => {
     setloading(true);
 
     try {
-        
-        
-      const res = await axios.post('https://pathforward-job-portal-backend.onrender.com/api/v1/job/post', input, {
+      const res = await axios.post(
+        `${API_END_POINT}/job/post`,
+        input,
+        {
           headers: { 'Content-Type': 'application/json' },
-   withCredentials: true,
-});
+          withCredentials: true,
+        }
+      );
 
       if (res.data.success) {
         toast.success('Job created successfully');
@@ -54,10 +57,6 @@ const Companydetails = () => {
       setloading(false);
     }
   };
-
-
-
-
 
   return (
     <div>
@@ -89,7 +88,7 @@ const Companydetails = () => {
                 name="description"
                 value={input.description}
                 onChange={handleChange}
-                type="text" 
+                type="text"
                 placeholder='Description'
                 className='border border-gray-400 p-3 rounded-lg'
               />
@@ -192,18 +191,39 @@ const Companydetails = () => {
 
         <div className='flex gap-6 mt-8'>
           <Link to="/admin/companies">
-            <Button className='px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white'>Cancel</Button>
+            <Button className='px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white'>
+              Cancel
+            </Button>
           </Link>
-          <Button onClick={handleClick} className='px-7 cursor-pointer' disabled={loading}>
+
+          <Button
+            onClick={handleClick}
+            className='px-7 cursor-pointer'
+            disabled={loading}
+          >
             {loading ? (
               <>
                 <svg className="animate-spin h-5 w-5 mr-2 inline" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a10 10 0 100 20v-4l-3 3 3 3v-4a8 8 0 01-8-8z" />
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                    fill="none"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4l3-3-3-3v4a10 10 0 100 20v-4l-3 3 3 3v-4a8 8 0 01-8-8z"
+                  />
                 </svg>
                 Creating...
               </>
-            ) : "Create Job"}
+            ) : (
+              "Create Job"
+            )}
           </Button>
         </div>
       </div>
