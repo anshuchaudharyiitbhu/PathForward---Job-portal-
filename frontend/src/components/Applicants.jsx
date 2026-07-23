@@ -1,22 +1,31 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from './shared/Navbar';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from './ui/table';
 import toast from 'react-hot-toast';
-import { JobContext } from './context/Jobcontext';
+import { API_END_POINT } from '@/utilis/constant';
 
 const Applicants = () => {
   const { id: jobid } = useParams();
   const [applications, setApplications] = useState([]);
-  const { job, setjob } = useContext(JobContext);
-  
 
   const fetchApplicants = async () => {
     try {
-      const res = await axios.get(`https://pathforward-job-portal-backend.onrender.com/api/v1/job/get/${jobid}`, {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        `${API_END_POINT}/job/get/${jobid}`,
+        {
+          withCredentials: true,
+        }
+      );
+
       if (res.data.success) {
         setApplications(res.data.job.applications || []);
       }
@@ -28,14 +37,14 @@ const Applicants = () => {
   const handleStatusChange = async (newStatus, appId) => {
     try {
       const res = await axios.post(
-        `https://pathforward-job-portal-backend.onrender.com/api/v1/application/status/${appId}/update`,
+        `${API_END_POINT}/application/status/${appId}/update`,
         { status: newStatus },
         { withCredentials: true }
       );
+
       if (res.data.success) {
-        
         toast.success('Status updated successfully');
-        fetchApplicants(); // refresh list
+        fetchApplicants();
       }
     } catch (error) {
       console.error(error);
@@ -50,8 +59,11 @@ const Applicants = () => {
   return (
     <div>
       <Navbar />
+
       <div
-        style={{ backgroundImage: 'linear-gradient(to right, #f5b2c2, #eecaff)' }}
+        style={{
+          backgroundImage: 'linear-gradient(to right, #f5b2c2, #eecaff)',
+        }}
         className="max-w-4xl mx-auto mt-10 bg-white shadow-lg p-8 rounded-lg border border-gray-200"
       >
         <Table>
@@ -80,8 +92,11 @@ const Applicants = () => {
                       alt="Profile"
                     />
                   </TableCell>
+
                   <TableCell>{item.applicant.name}</TableCell>
+
                   <TableCell>{item.applicant.email}</TableCell>
+
                   <TableCell>
                     {item?.applicant?.profile?.resume ? (
                       <a
@@ -96,17 +111,23 @@ const Applicants = () => {
                       'NA'
                     )}
                   </TableCell>
-                  <TableCell>{new Date(item.createdAt).toLocaleDateString()}</TableCell>
+
+                  <TableCell>
+                    {new Date(item.createdAt).toLocaleDateString()}
+                  </TableCell>
+
                   <TableCell className="text-right">
-                   <select
-                    value={item.status}
-                    onChange={(e) => handleStatusChange(e.target.value, item._id)}
-                     className="border p-2 rounded-md"
-                        >
-                       <option value="Pending">Pending</option>
-                       <option value="Accepted">Accepted</option>
-                       <option value="Rejected">Rejected</option>
-                  </select>
+                    <select
+                      value={item.status}
+                      onChange={(e) =>
+                        handleStatusChange(e.target.value, item._id)
+                      }
+                      className="border p-2 rounded-md"
+                    >
+                      <option value="Pending">Pending</option>
+                      <option value="Accepted">Accepted</option>
+                      <option value="Rejected">Rejected</option>
+                    </select>
                   </TableCell>
                 </TableRow>
               ))
